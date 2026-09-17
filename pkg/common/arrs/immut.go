@@ -1,37 +1,37 @@
 package arrs
 
 type Immutable[T any] struct {
-	elements []T
+	values []T
 }
 
 func NewImmutable[T any](
-	elements []T,
+	values []T,
 ) Immutable[T] {
 	return Immutable[T]{
-		elements: elements,
+		values: values,
 	}
 }
 
 func (i Immutable[T]) At(idx int) T {
-	return i.elements[idx]
+	return i.values[idx]
 }
 
-func (i Immutable[T]) Elements(yield func(T) bool) {
-	for idx := range i.elements {
-		if !yield(i.elements[idx]) {
+func (i Immutable[T]) Values(yield func(T) bool) {
+	for idx := range i.values {
+		if !yield(i.values[idx]) {
 			return
 		}
 	}
 }
 
 func (i Immutable[T]) All(yield func(int, T) bool) {
-	for idx := range i.elements {
-		if !yield(idx, i.elements[idx]) {
+	for idx := range i.values {
+		if !yield(idx, i.values[idx]) {
 			return
 		}
 	}
 }
 
 func (i Immutable[T]) Len() int {
-	return len(i.elements)
+	return len(i.values)
 }
