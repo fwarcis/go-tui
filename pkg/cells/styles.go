@@ -18,28 +18,28 @@ var MaxStylesANSILen = len(ansi.NewStyle(
 func (s Style) ANSI() string {
 	style := ansi.NewStyle()
 
-	if s&Bold != 0 {
+	if s&StyleBold != 0 {
 		style = style.Bold()
 	}
-	if s&Faint != 0 {
+	if s&StyleFaint != 0 {
 		style = style.Faint()
 	}
-	if s&Italic != 0 {
+	if s&StyleItalic != 0 {
 		style = style.Italic(true)
 	}
-	if s&Underlined != 0 {
+	if s&StyleUnderlined != 0 {
 		style = style.Underline(true)
 	}
-	if s&Blink != 0 {
+	if s&StyleBlink != 0 {
 		style = style.Blink(true)
 	}
-	if s&Reversed != 0 {
+	if s&StyleReversed != 0 {
 		style = style.Reverse(true)
 	}
-	if s&Concealed != 0 {
+	if s&StyleConcealed != 0 {
 		style = style.Conceal(true)
 	}
-	if s&Strikeout != 0 {
+	if s&StyleStrikeout != 0 {
 		style = style.Strikethrough(true)
 	}
 
@@ -47,12 +47,12 @@ func (s Style) ANSI() string {
 }
 
 const (
-	Bold Style = 1 << iota
-	Faint
-	Italic
-	Underlined
-	Blink
-	Reversed
-	Concealed
-	Strikeout
+	StyleBold Style = 1 << iota
+	StyleFaint
+	StyleItalic
+	StyleUnderlined
+	StyleBlink
+	StyleReversed
+	StyleConcealed
+	StyleStrikeout
 )
