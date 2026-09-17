@@ -12,26 +12,26 @@ func NewImmutable[T any](
 	}
 }
 
-func (s Immutable[T]) At(i int) T {
-	return s.elements[i]
+func (i Immutable[T]) At(idx int) T {
+	return i.elements[idx]
 }
 
-func (s Immutable[T]) Elements(yield func(T) bool) {
-	for i := range s.elements {
-		if !yield(s.elements[i]) {
+func (i Immutable[T]) Elements(yield func(T) bool) {
+	for idx := range i.elements {
+		if !yield(i.elements[idx]) {
 			return
 		}
 	}
 }
 
-func (s Immutable[T]) All(yield func(int, T) bool) {
-	for i := range s.elements {
-		if !yield(i, s.elements[i]) {
+func (i Immutable[T]) All(yield func(int, T) bool) {
+	for idx := range i.elements {
+		if !yield(idx, i.elements[idx]) {
 			return
 		}
 	}
 }
 
-func (s Immutable[T]) Len() int {
-	return len(s.elements)
+func (i Immutable[T]) Len() int {
+	return len(i.elements)
 }
