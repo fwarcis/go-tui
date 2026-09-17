@@ -82,7 +82,10 @@ func (c PosCell) AppendText(b []byte) ([]byte, error) {
 		c.Pos.X, c.Pos.Y,
 	)[:]...)
 	b, err := c.Cell.AppendText(b)
-	return b, err
+	return b, newError(
+		"PosCell.AppendText",
+		"%w", err,
+	)
 }
 
 func (c PosCell) CopyText(b []byte) (copied int) {
@@ -108,7 +111,10 @@ func (f *Frame) Commit() error {
 		))
 	}
 	if err != nil {
-		return err
+		return newError(
+			"Frame.Commit",
+			"%w", err,
+		)
 	}
 
 	prevCells := f.commitingData.PreviousCells
@@ -121,7 +127,10 @@ func (f *Frame) Commit() error {
 func (f *Frame) SetCell(x, y int, new cells.Cell) error {
 	_, err := f.Cell(x, y)
 	if err != nil {
-		return err
+		return newError(
+			"Frame.SetCell",
+			"%w", err,
+		)
 	}
 
 	f.commitingData.CurrentCells = append(f.commitingData.CurrentCells,
