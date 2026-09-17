@@ -4,9 +4,9 @@ import (
 	"errors"
 
 	"github.com/charmbracelet/x/ansi"
+	arrs "github.com/fwarcis/go-arrs/pkg"
 	"github.com/fwarcis/go-tui/internal/asrts"
 	"github.com/fwarcis/go-tui/pkg/cells"
-	"github.com/fwarcis/go-tui/pkg/common/arrs"
 	"github.com/fwarcis/go-tui/pkg/common/sizes"
 )
 

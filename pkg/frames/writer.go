@@ -18,7 +18,7 @@ func NewWriter(w io.Writer) *Writer {
 
 func (w *Writer) WriteFrame(frame Immutable) (int, error) {
 	var copied int
-	for cell := range frame.ChangedCells().Elements {
+	for cell := range frame.ChangedCells().Values {
 		copied += cell.CopyText(w.buf[copied:])
 	}
 	return w.w.Write(w.buf[:copied])
