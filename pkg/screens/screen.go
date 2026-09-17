@@ -19,7 +19,7 @@ type Screen[WriterRespValue any] struct {
 	loopsRendering atomic.Bool
 }
 
-func NewScreen[WriterRespValue any](
+func New[WriterRespValue any](
 	w FrameWriter[WriterRespValue],
 	commitingCellsCap int,
 	width cells.WidthSize,
