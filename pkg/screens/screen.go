@@ -14,7 +14,7 @@ type FrameWriter[RespValue any] interface {
 type Screen[WriterRespValue any] struct {
 	w FrameWriter[WriterRespValue]
 
-	frame Frame
+	frame FrameManager
 
 	loopsRendering atomic.Bool
 }

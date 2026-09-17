@@ -12,7 +12,7 @@ type (
 	_innerFrame = frames.Frame
 )
 
-type Frame struct {
+type FrameManager struct {
 	_innerFrame
 	fps frames.FPS
 
@@ -22,9 +22,9 @@ type Frame struct {
 	needsRendering bool
 }
 
-func NewFrame(inner frames.Frame, fps frames.FPS) Frame {
+func NewFrame(inner frames.Frame, fps frames.FPS) FrameManager {
 	mu := &sync.Mutex{}
-	return Frame{
+	return FrameManager{
 		_innerFrame:  inner,
 		fps:          fps,
 		_mu:          mu,
@@ -33,36 +33,36 @@ func NewFrame(inner frames.Frame, fps frames.FPS) Frame {
 	}
 }
 
-func (f *Frame) WaitForChanging() {
+func (f *FrameManager) WaitForChanging() {
 	for !f.needsRendering {
 		f.writingCond.Wait()
 	}
 }
 
-func (f *Frame) SignalToWrite() {
+func (f *FrameManager) SignalToWrite() {
 	f.needsRendering = true
 	f.writingCond.Signal()
 }
 
-func (f *Frame) WaitForWriting() {
+func (f *FrameManager) WaitForWriting() {
 	for f.needsRendering {
 		f.changingCond.Wait()
 	}
 }
 
-func (f *Frame) SignalToChange() {
+func (f *FrameManager) SignalToChange() {
 	f.needsRendering = false
 	f.changingCond.Signal()
 }
 
-func (f Frame) Sleep() {
+func (f FrameManager) Sleep() {
 	time.Sleep(f.fps.Duration())
 }
 
-func (f Frame) FPS() frames.FPS {
+func (f FrameManager) FPS() frames.FPS {
 	return f.fps
 }
 
-func (f *Frame) SetFPS(fps frames.FPS) {
+func (f *FrameManager) SetFPS(fps frames.FPS) {
 	f.fps = fps
 }
